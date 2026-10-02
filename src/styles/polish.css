@@ -1,0 +1,41 @@
+/* ============ PHASE 6 POLISH ============ */
+
+/* Focus is moved here after route changes; it is not an interactive control. */
+main:focus { outline: none; }
+
+a, button { -webkit-tap-highlight-color: transparent; }
+
+/* Notches / home indicators (viewport-fit=cover is on) */
+.nav {
+  padding-left: max(var(--gutter), env(safe-area-inset-left));
+  padding-right: max(var(--gutter), env(safe-area-inset-right));
+}
+.hero__cue, .hero__skip { bottom: calc(2rem + env(safe-area-inset-bottom)); }
+.footer { padding-bottom: calc(1.75rem + env(safe-area-inset-bottom)); }
+
+/* Small text must stay readable: raise the faded "View / status" label. */
+.exprow__view { opacity: 0.8; }
+
+/* Very short screens (landscape phones): never let the card collapse. */
+.proj { width: min(100%, 900px, max(18rem, calc((100svh - 24rem) * 1.6))); }
+@media (max-width: 719px) {
+  .proj { width: min(100%, max(14rem, calc((100svh - 26rem) * 0.8))); }
+}
+/* ...and skip the sticky scroll scene entirely (JS matches this query). */
+@media (max-height: 560px) {
+  .cwscene { height: auto; }
+  .cwscene__sticky { position: static; height: auto; min-height: 100svh; }
+}
+
+/* Direct visit to /countwise while its code loads */
+.cw-fallback { min-height: 100svh; background: var(--cw-paper); }
+
+/* Contextual cursor label (desktop mouse only; real cursor stays visible) */
+.cursor {
+  position: fixed; left: 0; top: 0; z-index: 90; pointer-events: none;
+  padding: 0.35rem 0.65rem; border: 1px solid var(--text); background: var(--bg); color: var(--text);
+  font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; white-space: nowrap;
+  opacity: 0; transition: opacity 0.25s var(--ease);
+}
+.cursor.is-on { opacity: 1; }
+body:has(.takeover) .cursor { display: none; }

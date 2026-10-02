@@ -1,0 +1,149 @@
+/* ============ TOKENS ============ */
+:root {
+  /* Portfolio = neutral stage */
+  --bg: #171615;
+  --text: #ece8df;
+  --muted: #8b867c;
+  --line: #2b2a27;
+  --accent: #c89d4b; /* used very sparingly */
+
+  /* CountWise world (its own identity, not the portfolio's) */
+  --cw-paper: #f7f5f0;
+  --cw-ink: #15171b;
+  --cw-gold: #c89d4b;
+  --cw-brown: #4a3720;
+
+  --font-display: 'Instrument Serif', 'Times New Roman', serif;
+  --font-body: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Type scale (fluid) */
+  --fs-hero: clamp(2.75rem, 9vw, 8.5rem);
+  --fs-project: clamp(2.5rem, 7vw, 6rem);
+  --fs-h2: clamp(1.75rem, 3.5vw, 3rem);
+  --fs-body: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --fs-label: 0.75rem;
+
+  /* Layout */
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --nav-h: 4rem;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============ RESET ============ */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; color-scheme: dark; }
+body, h1, h2, h3, p, ul { margin: 0; padding: 0; }
+ul { list-style: none; }
+img, svg, video { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; }
+a { color: inherit; text-decoration: none; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--text); color: var(--bg); }
+
+/* ============ ACCESSIBILITY ============ */
+:focus-visible { outline: 1px solid var(--text); outline-offset: 4px; }
+
+.skip-link {
+  position: fixed; left: var(--gutter); top: 0.75rem; z-index: 200;
+  padding: 0.5rem 0.9rem; background: var(--text); color: var(--bg);
+  transform: translateY(-300%);
+}
+.skip-link:focus { transform: none; }
+
+/* ============ TYPE PRIMITIVES ============ */
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-hero);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.label {
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.muted { color: var(--muted); }
+
+/* ============ NAVIGATION ============ */
+.nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 100;
+  height: var(--nav-h);
+  padding: 0 var(--gutter);
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: var(--fs-label);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0; transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+.nav--visible { opacity: 1; transform: none; pointer-events: auto; }
+.nav a, .nav button { color: var(--muted); transition: color 0.3s var(--ease); }
+.nav a:hover, .nav button:hover, .nav a.nav__brand { color: var(--text); }
+.nav__links { display: flex; gap: clamp(1.25rem, 3vw, 2.5rem); }
+.nav__menu { display: none; text-transform: uppercase; letter-spacing: inherit; }
+
+/* Mobile menu overlay */
+.menu {
+  position: fixed; inset: 0; z-index: 150;
+  background: var(--bg);
+  padding: var(--gutter);
+  display: flex; flex-direction: column;
+}
+.menu[hidden] { display: none; }
+.menu__close {
+  align-self: flex-end; height: var(--nav-h);
+  font-size: var(--fs-label); letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
+}
+.menu ul { margin-top: auto; margin-bottom: auto; display: grid; gap: 0.75rem; }
+.menu a {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 12vw, 4rem); line-height: 1.1;
+  color: var(--text);
+}
+.menu li:nth-last-child(-n + 2) a {
+  font-family: var(--font-body); font-size: var(--fs-label);
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
+}
+
+@media (max-width: 719px) {
+  .nav__links { display: none; }
+  .nav__menu { display: block; }
+}
+
+/* ============ PHASE 1 PLACEHOLDER SECTIONS ============ */
+.stub {
+  min-height: 100svh;
+  padding: calc(var(--nav-h) + 2rem) var(--gutter) 4rem;
+  display: flex; flex-direction: column; justify-content: center; gap: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+.stub__link { width: fit-content; border-bottom: 1px solid var(--muted); padding-bottom: 2px; }
+
+/* ============ REDUCED MOTION ============ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .nav { transform: none; }
+}

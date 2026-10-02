@@ -1,0 +1,38 @@
+/* ============ HERO / OPENING ============ */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  padding: calc(var(--nav-h) + 2rem) var(--gutter) 6rem;
+  display: flex; flex-direction: column; justify-content: center;
+  overflow: clip;
+}
+.hero__stage { transform-origin: 0% 50%; display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); }
+.hero__statement { max-width: 12ch; }
+.hero__word { display: inline-block; }
+
+.hero__name {
+  font-size: clamp(0.85rem, 1.3vw, 1.05rem);
+  font-weight: 500;
+  letter-spacing: 0.3em;
+}
+.hero__tagline {
+  color: var(--muted);
+  max-width: 36ch;
+  min-height: 3.4em; /* reserved so nothing shifts when it appears */
+}
+.hero__tw { display: inline-block; white-space: nowrap; }
+
+/* Returning visitor: end state of the intro (tagline already faded). */
+.hero--seen .hero__tagline { opacity: 0; }
+
+.hero__cue {
+  position: absolute; left: var(--gutter); bottom: 2rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.hero__cue i { display: block; width: 3rem; height: 1px; background: var(--muted); }
+
+.hero__skip {
+  position: absolute; right: var(--gutter); bottom: 2rem;
+  transition: color 0.3s var(--ease);
+}
+.hero__skip:hover { color: var(--text); }

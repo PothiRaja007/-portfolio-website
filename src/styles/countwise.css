@@ -1,0 +1,112 @@
+/* ============ COUNTWISE WORLD (its own identity) ============ */
+.cw {
+  min-height: 100svh; background: var(--cw-paper); color: var(--cw-ink);
+  padding: var(--gutter); display: flex; flex-direction: column; justify-content: center; gap: 1.25rem;
+  font-family: 'Inter', var(--font-body);
+}
+.cw__mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: var(--fs-label); letter-spacing: 0.2em; color: var(--cw-brown); }
+.cw__title { font-family: 'Fraunces', var(--font-display); font-weight: 400; font-size: var(--fs-project); line-height: 1.02; letter-spacing: -0.02em; }
+.cw__copy { color: var(--cw-brown); max-width: 34ch; }
+.cw__back { width: fit-content; border-bottom: 1px solid var(--cw-gold); padding-bottom: 2px; }
+.cw :focus-visible { outline-color: var(--cw-ink); }
+
+/* ============ SELECTED WORK ============ */
+.work { border-top: 1px solid var(--line); }
+.work__label { padding: calc(var(--nav-h) + 1rem) var(--gutter) 0; }
+
+/* Tall track + sticky stage: scroll drives the beats without scroll-jacking. */
+.cwscene { position: relative; height: 280svh; }
+.cwscene__sticky {
+  position: sticky; top: 0; height: 100svh;
+  padding: var(--nav-h) var(--gutter) 2rem;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: clamp(0.75rem, 2svh, 1.5rem); text-align: center;
+}
+.cwscene__head { display: grid; gap: 0.25rem; }
+.cwscene__name { font-size: clamp(2.25rem, min(8vw, 11svh), 6.5rem); letter-spacing: 0.02em; }
+.cwscene__foot { display: grid; gap: 0.75rem; justify-items: center; }
+.cwscene__cta { border-bottom: 1px solid var(--muted); padding-bottom: 2px; }
+.cwscene__cta:hover { border-color: var(--text); }
+
+/* Outer = scroll transform (GSAP). Inner = hover zoom only (CSS). */
+.proj {
+  display: block; text-align: left; cursor: pointer;
+  width: min(100%, 900px, calc((100svh - 24rem) * 1.6));
+  aspect-ratio: 16 / 10;
+}
+.proj__inner {
+  height: 100%; padding: clamp(1rem, 2.6vw, 2.25rem);
+  display: flex; flex-direction: column; gap: 0.6rem;
+  background: var(--cw-paper); color: var(--cw-ink); border-radius: 16px;
+  font-family: 'Inter', var(--font-body);
+  transition: transform 0.7s var(--ease);
+}
+@media (hover: hover) {
+  .proj:hover .proj__inner { transform: scale(1.04); }
+}
+
+.cwcard__top { display: flex; justify-content: space-between; }
+.cwcard__mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.68rem; letter-spacing: 0.18em; color: var(--cw-brown); }
+.cwcard__balance { font-family: 'Fraunces', var(--font-display); font-size: clamp(1.9rem, 5.5vw, 3.75rem); line-height: 1; }
+.cwcard__accts { display: flex; gap: 0.5rem; flex-wrap: wrap; font-size: clamp(0.68rem, 1.4vw, 0.85rem); }
+.cwcard__accts span { border: 1px solid #d9d4c8; border-radius: 999px; padding: 0.15rem 0.7rem; }
+.cwcard__accts b { font-weight: 500; color: var(--cw-brown); }
+.cwcard__bars { flex: 1; min-height: 0; display: flex; align-items: flex-end; gap: 4%; border-bottom: 1px solid #d9d4c8; }
+.cwcard__bars i { flex: 1; background: var(--cw-gold); }
+.cwcard__rows { display: grid; gap: 0.25rem; font-size: clamp(0.7rem, 1.5vw, 0.9rem); }
+.cwcard__rows li { display: flex; justify-content: space-between; border-top: 1px solid #d9d4c8; padding-top: 0.25rem; }
+
+/* Mobile: its own vertical composition, not a shrunken desktop. */
+@media (max-width: 719px) {
+  .cwscene { height: 240svh; }
+  .proj { aspect-ratio: 4 / 5; width: min(100%, calc((100svh - 26rem) * 0.8)); }
+}
+
+/* Reduced motion: no scroll choreography, everything visible and static. */
+@media (prefers-reduced-motion: reduce) {
+  .cwscene { height: auto; }
+  .cwscene__sticky { position: static; height: auto; min-height: 100svh; }
+}
+
+/* ============ COUNTWISE LANDING PAGE ============ */
+.cwpage { background: var(--cw-paper); color: var(--cw-ink); font-family: 'Inter', var(--font-body); }
+.cwsec {
+  max-width: 1100px; margin: 0 auto;
+  padding: clamp(4rem, 10vw, 8rem) var(--gutter);
+  border-top: 1px solid #d9d4c8;
+  display: grid; gap: 2rem; grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 900px) {
+  .cwsec { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 4rem; align-items: start; }
+}
+.cwsec__title { font-family: 'Fraunces', var(--font-display); font-weight: 400; font-size: clamp(1.75rem, 4vw, 3rem); line-height: 1.1; letter-spacing: -0.015em; margin: 0.75rem 0 1rem; }
+.cwsec__text { color: var(--cw-brown); max-width: 44ch; }
+
+.spec { border: 1px solid #d9d4c8; border-radius: 12px; padding: clamp(1rem, 2.5vw, 1.5rem); background: #fbfaf6; display: grid; gap: 0.6rem; }
+.spec__input { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.95rem; padding-bottom: 0.75rem; border-bottom: 1px solid #d9d4c8; }
+.spec__row { display: flex; justify-content: space-between; gap: 1rem; padding-top: 0.5rem; border-top: 1px solid #ece8dd; }
+.spec__input + .spec__row { border-top: 0; padding-top: 0; }
+.spec__row span:last-child { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+.spec__row--total { border-top-color: var(--cw-ink); font-weight: 500; }
+.spec__note { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cw-brown); opacity: 0.7; margin-top: 0.5rem; }
+
+.cwfoot {
+  border-top: 1px solid #d9d4c8; padding: 3rem var(--gutter) 4rem;
+  display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: space-between; align-items: center;
+}
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+.reveal.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+/* ============ TAKEOVER OVERLAY ============ */
+.takeover { position: fixed; inset: 0; z-index: 300; overflow: hidden; will-change: clip-path; }
+.takeover .cw { height: 100%; }
+.takeover__face { position: absolute; pointer-events: none; }
+.takeover__face > * { display: block; width: 100%; height: 100%; }
+
+/* Mobile "lift": a paper panel scales from the card; hero text sits on top. */
+.takeover__panel { display: none; position: absolute; inset: 0; background: var(--cw-paper); transform-origin: 0 0; }
+.takeover--lift { will-change: auto; }
+.takeover--lift .takeover__panel { display: block; }
+.takeover--lift .cw { background: transparent; position: relative; }
