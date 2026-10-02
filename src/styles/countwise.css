@@ -47,14 +47,21 @@
 
 .cwcard__top { display: flex; justify-content: space-between; }
 .cwcard__mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.68rem; letter-spacing: 0.18em; color: var(--cw-brown); }
-.cwcard__balance { font-family: 'Fraunces', var(--font-display); font-size: clamp(1.9rem, 5.5vw, 3.75rem); line-height: 1; }
-.cwcard__accts { display: flex; gap: 0.5rem; flex-wrap: wrap; font-size: clamp(0.68rem, 1.4vw, 0.85rem); }
-.cwcard__accts span { border: 1px solid #d9d4c8; border-radius: 999px; padding: 0.15rem 0.7rem; }
-.cwcard__accts b { font-weight: 500; color: var(--cw-brown); }
-.cwcard__bars { flex: 1; min-height: 0; display: flex; align-items: flex-end; gap: 4%; border-bottom: 1px solid #d9d4c8; }
-.cwcard__bars i { flex: 1; background: var(--cw-gold); }
-.cwcard__rows { display: grid; gap: 0.25rem; font-size: clamp(0.7rem, 1.5vw, 0.9rem); }
-.cwcard__rows li { display: flex; justify-content: space-between; border-top: 1px solid #d9d4c8; padding-top: 0.25rem; }
+.cwcard__balance { font-family: 'Fraunces', var(--font-display); font-size: clamp(2rem, 5.5vw, 3.75rem); line-height: 1; font-variant-numeric: tabular-nums; }
+
+/* Line chart: grid + clipped line layer + moving dot share one box. */
+.cwcard__chart { position: relative; flex: 1; min-height: 0; margin-top: 0.5rem; }
+.cwcard__layer { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.cwcard__layer svg { width: 100%; height: 100%; display: block; }
+.cwcard__grid { stroke: #d9d4c8; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.cwcard__ghost { fill: none; stroke: #d9d4c8; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.cwcard__base { stroke: var(--cw-brown); stroke-opacity: 0.45; stroke-width: 1; stroke-dasharray: 4 5; vector-effect: non-scaling-stroke; }
+.cwcard__area { fill: rgba(200, 157, 75, 0.18); }
+.cwcard__line { fill: none; stroke: var(--cw-gold); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.cwcard__dot {
+  position: absolute; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%;
+  background: var(--cw-gold); box-shadow: 0 0 0 3px var(--cw-paper);
+}
 
 /* Mobile: its own vertical composition, not a shrunken desktop. */
 @media (max-width: 719px) {
